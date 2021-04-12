@@ -1,50 +1,75 @@
+class Product{
+title = 'DEFAULT';
+imageUrl;
+description;
+price;
+
+constructor(title, image, price, desc){
+	this.title = title;
+	this.imageUrl = image;
+	this.price = price;
+	this.description = desc;
+	
+}
+
+}
+
 
  const productList = {
 	products: [
-	
-	{
-		title: 'Dam Brown',
-		imageUrl: '../images/shirt2.jpg',
-		price: 40.89,
-		description: 'A smooth and slim fit cotton wear'
-	},
-	
-	
-	{
-		title: 'Easy Wear',
-		imageUrl: '../images/shirt6.jpg',
-		price: 40.89,
-		description: 'Look gently fit'
-	},
+	new Product('Dam Brown', '../images/shirt2.jpg', 40.89,'A smooth and slim fit cotton wear'),
+//	{
+//		title: 'Dam Brown',
+//		imageUrl: '../images/shirt2.jpg',
+//		price: 40.89,
+//		description: 'A smooth and slim fit cotton wear'
+//	},
+//	
 		
-	{
-		title: 'White Boxed sleeve',
-		imageUrl: '../images/shirt4.jpg',
-		price: 40.89,
-		description: 'Feel as King'
-	},
+	new Product('Easy Wear', '../images/shirt6.jpg', 50.40,'Look gently fit'),
 		
-	{
-		title: 'BnW classic Dam',
-		imageUrl: '../images/shirt3.jpg',
-		price: 40.89,
-		description: 'Fit as a Fiddle'
-	},
+//	{
+//		title: 'Easy Wear',
+//		imageUrl: '../images/shirt6.jpg',
+//		price: 40.89,
+//		description: 'Look gently fit'
+//	},
 		
-	{
-		title: 'Blue man',
-		imageUrl: '../images/shirt1.jpg',
-		price: 40.89,
-		description: 'A smooth and slim fit sleeve'
-	},
+	new Product('White Boxed sleeve', '../images/shirt4.jpg', 40.69,'Feel as a King'),
+//	{
+//		title: 'White Boxed sleeve',
+//		imageUrl: '../images/shirt4.jpg',
+//		price: 40.89,
+//		description: 'Feel as King'
+//	},
+		
+	new Product('Jean Long Sleeve', '../images/shirt9.jpg', 120.60,'Fit as a Fiddle'),
+		
+//	{
+//		title: 'BnW classic Dam',
+//		imageUrl: '../images/shirt3.jpg',
+//		price: 40.89,
+//		description: 'Fit as a Fiddle'
+//	},
+		
+	new Product('Blue sleeve Shirt', '../images/shirt8.jpg', 30.69,'A smooth slim fit sleeve'),
+//		
+//	{
+//		title: 'Blue man',
+//		imageUrl: '../images/shirt8.jpg',
+//		price: 40.89,
+//		description: 'A smooth and slim fit sleeve'
+//	},
 	
-	{
-		title: 'Gshirt',
-		imageUrl: '../images/shirt5.jpg',
-		price: 40.89,
-		description: 'Make it simple & make it classic'
-	}
+		new Product('G-Shirt', '../images/shirt5.jpg', 40.69,'Simply classic fit')
 	
+//	{
+//		title: 'Gshirt',
+//		imageUrl: '../images/shirt5.jpg',
+//		price: 40.89,
+//		description: 'Make it simple & make it classic'
+//	}
+//	
 
 ], 
 //	METHOD FOR RENDERING A LIST OF PRODUCTS
