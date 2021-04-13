@@ -1,113 +1,143 @@
-class Product{
-title = 'DEFAULT';
-imageUrl;
-description;
-price;
+//CLASS FOR DATA
 
+//basic class fields of products
+class Product{
 constructor(title, image, price, desc){
 	this.title = title;
 	this.imageUrl = image;
 	this.price = price;
-	this.description = desc;
-	
-}
+	this.description = desc; }
 
 }
 
-
- const productList = {
-	products: [
-	new Product('Dam Brown', '../images/shirt2.jpg', 40.89,'A smooth and slim fit cotton wear'),
-//	{
-//		title: 'Dam Brown',
-//		imageUrl: '../images/shirt2.jpg',
-//		price: 40.89,
-//		description: 'A smooth and slim fit cotton wear'
-//	},
-//	
-		
-	new Product('Easy Wear', '../images/shirt6.jpg', 50.40,'Look gently fit'),
-		
-//	{
-//		title: 'Easy Wear',
-//		imageUrl: '../images/shirt6.jpg',
-//		price: 40.89,
-//		description: 'Look gently fit'
-//	},
-		
-	new Product('White Boxed sleeve', '../images/shirt4.jpg', 40.69,'Feel as a King'),
-//	{
-//		title: 'White Boxed sleeve',
-//		imageUrl: '../images/shirt4.jpg',
-//		price: 40.89,
-//		description: 'Feel as King'
-//	},
-		
-	new Product('Jean Long Sleeve', '../images/shirt9.jpg', 120.60,'Fit as a Fiddle'),
-		
-//	{
-//		title: 'BnW classic Dam',
-//		imageUrl: '../images/shirt3.jpg',
-//		price: 40.89,
-//		description: 'Fit as a Fiddle'
-//	},
-		
-	new Product('Blue sleeve Shirt', '../images/shirt8.jpg', 30.69,'A smooth slim fit sleeve'),
-//		
-//	{
-//		title: 'Blue man',
-//		imageUrl: '../images/shirt8.jpg',
-//		price: 40.89,
-//		description: 'A smooth and slim fit sleeve'
-//	},
+//class for handling item selected
+class ShoppingCart{
 	
-		new Product('G-Shirt', '../images/shirt5.jpg', 40.69,'Simply classic fit')
-	
-//	{
-//		title: 'Gshirt',
-//		imageUrl: '../images/shirt5.jpg',
-//		price: 40.89,
-//		description: 'Make it simple & make it classic'
-//	}
-//	
+	items = [];
 
-], 
-//	METHOD FOR RENDERING A LIST OF PRODUCTS
+addProduct(product){
+	this.items.push(product);
+	this.totalOutput =`<h2>\$ ${0}</h2>`;
+	 
+}
+//creating a button for adding to cart
 	render(){
-//	SELECTING THE ID OF THE ELEMENT TO RENDER PRODUCTS
-	const productHandler = document.querySelector('.products');
-			
+	const cartEl = document.createElement('section');
+		cartEl.innerHTML = 
+			`
+			<h2>Total: \$ ${0} </h2>
+			<button> Order Now </button>
+			`;
+		cartEl.className = 'cart';
+		this.totalOutput = cartEl.querySelector('h2');
+		return cartEl;
+	}
+
+
+	
+}
+
+
+// product item class, renders a single product 
+let numberOfItemInCart = 0;
+class ProductItem{
+
+	constructor(product){
+		this.product = product;
+	}
+//	button evenListener function
+	addToCart() {
+	//	alert('Adding to cart');
+//		alert(this.product);
+		
+	}
+	
+	render(){
+		const prodEl = document.createElement('li');
+			prodEl.className = 'product-grid';
+			prodEl.innerHTML = 
+				`<div class="one-item">
+					<img src = "${this.product.imageUrl}" alt="${this.product.title}">
+					<div>
+						<h2> ${this.product.title}</h2>
+						<h3 class="price">\$ ${this.product.price}</h3>
+						<p> ${this.product.description}</p>
+						<button class="add-cart"> + Cart</button>
+						<button class="add-cart cart-delete">Delete</button>
+					</div>
+				 </div>`;
+		
+//		getting the button of the instance and adding evenListener
+		const addCartButton = prodEl.querySelector('button');
+	//	addCartButton.addEventListener('click',this.addToCart.bind(this));
+		addCartButton.addEventListener('click',function () {
+			//numberOfItemInCart++;
+		let cartNumber = document.querySelector('#cartnumber');
+		//let num = numberOfItemInCart++;
+		cartNumber.textContent = ++numberOfItemInCart;
+
+		let addBtn = this;
+		let removeBtn = document.createElement('button');
+		removeBtn.textContent = 'Remove';
+		removeBtn.className = 'remove-cart';
+		removeBtn.onclick = function () {
+			// num =  numberOfItemInCart--;
+			 cartNumber.textContent = --numberOfItemInCart;
+			this.replaceWith(addBtn);
+		}
+
+		this.replaceWith(removeBtn);
+
+		});
+
+		return prodEl;
+	}
+}
+
+
+//class instances of products 
+class ProductList{
+//	instances of the Products, 6 instances in total
+	products = [
+		new Product('Dam Brown', '../images/shirt2.jpg', 90.89,'A smooth and slim fit cotton wear'),
+		new Product('Easy Wear', '../images/shirt6.jpg', 50.40,'Look gently fit'),
+		new Product('White Boxed sleeve', '../images/shirt4.jpg', 40.69,'Feel as a King'),
+		new Product('Jean Long Sleeve', '../images/shirt9.jpg', 120.60,'Fit as a Fiddle'),
+		new Product('Blue sleeve Shirt', '../images/shirt8.jpg', 30.69,'A smooth slim fit sleeve'),
+		new Product('G-Shirt', '../images/shirt5.jpg', 40.69,'Simply classic fit')
+		];
+
+constructor(){}
+
+render(){
+	
 		const prodList = document.createElement('ul');
 		prodList.className = 'product-list';
 		for(const prod of this.products){
-			const proEl = document.createElement('li');
-			proEl.className = 'product-grid';
-			proEl.innerHTML = 
-				`<div class="one-item">
-					<img src = "${prod.imageUrl}" alt="${prod.title}">
-
-					<div>
-						<h2> ${prod.title}</h2>
-						<h3>\$ ${prod.price}</h3>
-						<p> ${prod.description}</p>
-						
-						<button class="add-cart"> Add to Cart</button>
-						
-					</div>
-
-				 </div>`;
-			
-			prodList.append(proEl);
+			const productItem = new ProductItem(prod);
+			const prodEl  = productItem.render();
+			prodList.append(prodEl);
 			
 		}
 //		named renderHook
-		productHandler.append(prodList);
-		
+		return prodList;
+	}
 }
-	
-	 
-};
+
+class Shop{
+	render(){
+		const productHandler = document.querySelector('.products');
+		const cart = new ShoppingCart();
+		const cartEl = cart.render();
+		const productList = new ProductList();
+		const prodListEl = productList.render();
+		productHandler.append(cartEl);
+		productHandler.append(prodListEl);
+}
+	}
 
 
+const shop  =  new Shop();
+shop.render();
 
-productList.render();
+
